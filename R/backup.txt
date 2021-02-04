@@ -1,0 +1,31 @@
+# loader raw and supporting data files
+
+# load libraries
+library(tidyverse)
+library(vroom)
+library(openxlsx)
+library(fuzzyjoin)
+
+# load grid data
+grid <- vroom("grid/grid.csv") %>% select(grid_id= ID, main = Name, Country, -City, -State)
+gridAliases <- vroom("grid/full_tables/aliases.csv") 
+gridAcronyms <- vroom("grid/full_tables/acronyms.csv") 
+gridTypes <- vroom("grid/full_tables/types.csv") # e.g. government, education
+gridRelationships <- vroom("grid/full_tables/relationships.csv")
+
+# combined grid name types
+grid %<>% 
+  left_join(gridAliases, by = "grid_id") %>% 
+  left_join(gridAcronyms, by = "grid_id") %>% 
+  pivot_longer(cols = c("main", "alias", "acronym"), names_to = "Type", values_to = "Name") %>% 
+  filter(!is.na(Name)) %>% 
+  distinct()
+
+# load patentsView data 
+PVassignees <-  vroom("PatentsView/assignee.tsv", delim = "\t", 
+                             col_names = TRUE, na = c("", " ", "na", "NA", "N/A"))
+PVrawAssignees <-  vroom("PatentsView/rawassignee.tsv", delim = "\t", 
+                             col_names = TRUE, na = c("", " ", "na", "NA", "N/A"))
+
+PVrawAssignees %>% distinct(organisation, assignee_id) %>% 
+  group_by(assignees_id) %>% tally() %>% arrange(desc(n))
