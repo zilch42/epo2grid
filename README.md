@@ -27,9 +27,11 @@ A custom word stemmer was produced for the task and can be found in [R/Stems.csv
 
 Once the names had been prepared, a list of potential matches for each of the 2000 grid names was generated using fuzzy text matching based on the jaro-winkler algorithm. The maximum distance of 0.1 was used, which still produced several false positive matches, but a small enough list to enable easy manual selection. The prefix factor was set to 0.1.
 
-Note that fuzzy matching of the 2000 grid IDs against the entire list of EPO applicant names took approximately a week using a computing cluster. Matching the entire grid database is not feasible using the current method. Rerunning the process should not be undertaken lightly, though it has been written so that the data is saved after each match and the process can be stopped and restarted at any point.
+Note that fuzzy matching of the 2000 grid IDs against the entire list of EPO applicant names took approximately a week using a computing cluster and still required significant manual validation. Matching the entire grid database is not feasible using the current method. Rerunning the process should not be undertaken lightly, though it has been written so that the data is saved after each match and the process can be stopped and restarted at any point.
 
-Manual selection was performed from each of the proposed matches. In some cases, multiple disambiguated EPO names were matched to a single grid ID. This would suggest some incompleteness in the EPO disambiguation process.
+Manual selection was performed from each of the proposed matches. In some cases, multiple disambiguated EPO names were matched to a single grid ID. This would suggest some incompleteness in the EPO disambiguation process. 
+
+Manual validation of the proposed matches from the algorithm resulted in matches for approximately 60% of the top 2000 organisations. 
 
 ## Data Sources
 
@@ -51,15 +53,40 @@ EPO data was obtained from the EPO Standardised Applicant Name Variants.csv file
 * Note that applicant names are not unique. I.e. the same applicant name has been disambiguated to multiple disambiguated names within the EPO database. If you match only on the raw applicant name, you may end up mapping to the wrong grid ID. If your data includes the disambiguated EPO names, it would be recommended to match on both the raw applicant name and the disambiguated name.
 * Some of the grid IDs provided in the top 2000 file are not present in the current version of the grid database. If these grid IDs are entered as a grid URL they redirect to a different organisation (assumedly due to mergers or acquisitions etc), though these redirect linkages and not explicitly shown in the downloadable grid database. These old grid IDs have still been matched to the EPO data. It will be up to the user to decide how to deal with these cases.
 
+## Special Cases
+
+The following is a list of special cases found and handled differently. There are many other cases are probably need special treatment but haven't yet received it.
+
+* Added the University of Massachusetts system which wasn't present in the top 2000 but the individual campuses were not listed in the EPO data (except for Lowell and the School of medicine, which will need to be merged in with the parent).
+* Mount Sinai Hospital (USA and Canada) is ambiguous. I assumed that Mount Sinai Hospital Corporation matched to the USA, and I went up one level to the parent grid organisation: Mount Sinai Health System, as the individual hospitals in the USA were not in the grid data.
+* University of California: most but not all of the UC campuses were in the grid data (Davis and Berkely at least were missing). I matched the individual campuses to their own grid ids, the University of California itself to the University of California system, but the system entry will need the child campuses included in it. 
+* The same goes for most of the other American university systems. If the individual campuses were not present in the EPO data, then the EPO entry was only matched to the University system grid id. Many system grid IDs have been added.
+* the University of Texas health science centres (at Houston, San Antonio and Tyler) have no parent apart from the University of Texas system and have all been matched to the University of Texas health science Centre (EPO). There will therefore be duplication here.
+* the parent organisations for the following were added from grid in place of multiple children who in the top 2000 list as the EPO names were not specific enough to distinguish between them: Abbott, Bristol-Myers Squibb, Thermo Fisher
+* Soochow University (China and Taiwan) are entirely ambiguous. Matched to both.
+* York University and University of York are entirely ambiguous. Matched to both.
+* Univ Newcastle was assumed to be the one in the UK not Australia.
+* The University of Miami and Miami University are entirely ambiguous. Generally I have gone with the University of Miami except where the raw applicant name is specifically Miami University.
+* A few of the children of the Leibniz association are present in the EPO data but not many. This group is large. The children weren't present in the top 2000 list. I haven't grouped the few found in the EPO data to the parent. I'm not sure what the best way to handle this is. The same will go for groups like the Chinese Academy of science, Russian Academy of science, Helmholtz Association, Max Planck etc.
+* The Indian institutes of technology do not have a parent, but some of the applicants in the EPO data are not associated with a specific campus. These were matched to the Indian Institute of technology KHARAGPUR, as it was the first one established.
+
+
+
+
+
+
+
 ## Things to check
-Russian Academy of sciences
-University of Paris sud = University of Paris saclay
-University of Sheffield needs matching to University of Sheffield minors
-UC_Davic etc
-Ulvac and 
-University (coll) London
-India Institute of tech top level?
-Dow kids
-Uni SA and Flinders
-Leibniz Association - too many children
-INDIAN INST TECHNOLOGY
+University systems
+
+
+
+
+
+
+
+
+
+
+
+
