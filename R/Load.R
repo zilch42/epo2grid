@@ -24,15 +24,7 @@ EPO <- read.xlsx("R/EPO Standardised Applicant Name Variants.xlsx") %>% rename(r
 lens2k <- read.csv("R/Top Institutions by Patent Citations.csv") %>% mutate(Name = str_to_upper(Institution)) %>% 
   select(-Institution, grid_id = GRID, Name)
 
-# load patentsView data 
-# PVassignees <-  vroom::vroom("PatentsView/assignee.tsv", delim = "\t", 
-#                              col_names = TRUE, na = c("", " ", "na", "NA", "N/A"))
-# PVrawAssignees <-  vroom::vroom("PatentsView/rawassignee.tsv", delim = "\t", 
-#                              col_names = TRUE, na = c("", " ", "na", "NA", "N/A"))
-
-
 # -------------------------USEFUL FUNCTIONS---------------------
-# manually run through matches and validate
 source("R/validate.R")
 source("R/match_and_save.R")
 
