@@ -4,7 +4,7 @@ The purpose of this project is to match standardised EPO applicant names to orga
 
 ## Usage
 
-The final look up table between EPO standardised names and grid IDs can be found in [EPO_Lookup_v1.xlsx](EPO_Lookup_v1.xlsx). Lookups will need to be performed on **BOTH** the standardName and rawName columns. The raw applicant name cannot be used alone as it is not unique and the standardised name cannot be used alone because some corrections have been made to the mapping within standardised names were it was clear that multiple organisations had been disambiguated to the same standardised name. Logic will also need to be included for new data that has a matching disambiguated standardName but a different rawName that isn't yet on the look up table.
+The final look up table between EPO standardised names and grid IDs can be found in [EPO_Lookup.xlsx](EPO_Lookup.xlsx). Lookups will need to be performed on **BOTH** the standardName and rawName columns. The raw applicant name cannot be used alone as it is not unique and the standardised name cannot be used alone because some corrections have been made to the mapping within standardised names were it was clear that multiple organisations had been disambiguated to the same standardised name. Logic will also need to be included for new data that has a matching disambiguated standardName but a different rawName that isn't yet on the look up table.
 
 ## Approach
 
@@ -39,7 +39,9 @@ For a full list of which organisations have and have not been matched see [Top2k
 
 ## Data Sources
 
-Grid data was obtained from [https://grid.ac/downloads](https://grid.ac/downloads). The 39th release was used for this project (Release 2020-12-09). The list of 2000 grid IDs of interest was provided in CSV format [R/Top_Institutions_by_Patent_Citations.csv](R/Top_Institutions_by_Patent_Citations.csv). The grid database was filtered by grid_id to only this list. Note that some of the grid IDs that were present in the provided top 2000 list were not in the most recent version of the grid database.
+Grid data was obtained from [https://grid.ac/downloads](https://grid.ac/downloads). The 39th release was used for this project (Release 2020-12-09). A copy of this is not contained within the repo due to size but can be downloaded separately.
+
+The list of 2000 grid IDs of interest was provided in CSV format [R/Top_Institutions_by_Patent_Citations.csv](R/Top_Institutions_by_Patent_Citations.csv). The grid database was filtered by grid_id to only this list. Note that some of the grid IDs that were present in the provided top 2000 list were not in the most recent version of the grid database. 
 
 EPO data was obtained from the EPO Standardised Applicant Name Variants.csv file which used to be readily updated by the EPO. This file is no longer available on their website, but is believed to just an export of the doc_std_name field from table tls206_person in PATSTAT (and should also be available in DOCDB).
 
