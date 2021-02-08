@@ -14,7 +14,7 @@ Due to these many variations, a wide range of name variations were used as possi
 
 * main name
 * acronyms
-* aliases
+* aliases 
 * main name country removed
 * the name string provided in the list of the top 2000 grid_ids (often cleaner than the name in the grid database) 
 * all of the above stemmed
