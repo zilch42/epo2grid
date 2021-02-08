@@ -38,10 +38,6 @@ grid %<>% left_join({
     distinct(related_grid_id, .keep_all = TRUE)}, 
   by = c("grid_id" = "related_grid_id"))
 
-# filter grid dataset to lens2k and related
-# related <- gridRelationships %>% filter(grid_id %in% grid2k$grid_id) %$% related_grid_id %>% unique()
-# grid2k <- grid %>% filter(grid_id %in% unique(c(lens2k$grid_id, related))) %>% 
-#   mutate(top2k = ifelse(grid_id %in% lens2k$grid_id, TRUE, FALSE))
 # filter grid dataset to lens2k (overwrite)
 grid2k <- grid %>% filter(grid_id %in% lens2k$grid_id)
 

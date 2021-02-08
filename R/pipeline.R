@@ -64,12 +64,12 @@ cleanMatches <- read.xlsx("processed/allMatchesClean.xlsx") %>%
 # export matches against EPO standard and raw names for final cleaning
 EPO %>% select(-gridMatch) %>% 
   left_join(cleanMatches, by = c("standardName" = "EPOstandardName")) %>% 
-  write.xlsx("processed/EPO Look Up.xlsx")
+  write.xlsx("processed/EPO_Look_Up.xlsx")
 
 #---------------MANUAL STAGE HERE----------------#
 
 # load final look up table
-final <- read.xlsx("EPO Look Up v1.xlsx")
+final <- read.xlsx("EPO_Look_Up_v1.xlsx")
 
 # determine which grid IDs have a match
 validation <- grid2k %>% filter(Type %in% c("lens", "main")) %>% 
@@ -78,7 +78,7 @@ validation <- grid2k %>% filter(Type %in% c("lens", "main")) %>%
   mutate(currentlyOnGrid = ifelse(Type == "main", TRUE, FALSE), 
          hasMatch = grid_id %in% final$grid_id) %>% 
   select(-Type) 
-write.csv(validation, "Top2k Status.csv", row.names = FALSE, na = '')
+write.csv(validation, "Top2k_Status.csv", row.names = FALSE, na = '')
 
 # proportion matched
 validation %>% filter(hasMatch) %>% nrow()/2000

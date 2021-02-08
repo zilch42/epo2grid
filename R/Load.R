@@ -20,8 +20,8 @@ gridRelationships <- read.csv("grid/full_tables/relationships.csv")
 gridExternal <- read.csv("grid/full_tables/external_ids.csv")
 
 # load data to match
-EPO <- read.xlsx("R/EPO Standardised Applicant Name Variants.xlsx") %>% rename(rawName = name, gridMatch = grid_id)
-lens2k <- read.csv("R/Top Institutions by Patent Citations.csv") %>% mutate(Name = str_to_upper(Institution)) %>% 
+EPO <- read.xlsx("R/EPO_Standardised_Applicant_Name_Variants.xlsx") %>% rename(rawName = name, gridMatch = grid_id)
+lens2k <- read.csv("R/Top_Institutions_by_Patent_Citations.csv") %>% mutate(Name = str_to_upper(Institution)) %>% 
   select(-Institution, grid_id = GRID, Name)
 
 # -------------------------USEFUL FUNCTIONS---------------------
