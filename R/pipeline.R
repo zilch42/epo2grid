@@ -69,7 +69,7 @@ EPO %>% select(-gridMatch) %>%
 #---------------MANUAL STAGE HERE----------------#
 
 # load final look up table
-final <- read.xlsx("EPO_Look_Up_v1.xlsx")
+final <- read.xlsx("EPO_Look_Up.xlsx")
 
 # determine which grid IDs have a match
 validation <- grid2k %>% filter(Type %in% c("lens", "main")) %>% 
